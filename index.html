@@ -78,8 +78,19 @@ button.icon:focus-visible { outline: none; }
 button.icon svg { filter: drop-shadow(0 0 5px var(--neon)); }
 /* sul telefono resta solo l'icona che si può aprire */
 @media (max-width: 820px) {
-  .icons { position: static; flex-direction: row; justify-content: center; }
-  .icons div.icon { display: none; }
+  .desk {
+    display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 8px;
+    align-content: center; justify-items: center;
+    padding-left: max(6px, env(safe-area-inset-left, 0px));
+    padding-right: max(8px, env(safe-area-inset-right, 0px));
+  }
+  .icons { position: static; grid-column: 1; grid-row: 1 / span 2; align-self: start; gap: 14px; }
+  .icon { width: 56px; font-size: 10px; line-height: 1.2; }
+  button.icon { font-size: 10px; }
+  button.icon span { white-space: nowrap; }
+  .win.main, .win.rank { grid-column: 2; }
+  .screen { padding-left: 8px; padding-right: 8px; }
+  .screen h1 { font-size: clamp(54px, 19vw, 168px); }
 }
 
 /* ---- mappe.exe ---- */
