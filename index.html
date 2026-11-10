@@ -423,13 +423,13 @@ body {
     <div class="rsvp" id="rsvp">
       <p id="question">Allora, vieni?</p>
       <div class="btnrow" id="choices">
-        <button class="btn default" id="yes" type="button">ci sono</button>
-        <button class="btn" id="no" type="button">no bro, non vengo</button>
+        <button class="btn default" id="yes" type="button">Ci sono</button>
+        <button class="btn" id="no" type="button">No, non vengo trimone</button>
       </div>
     </div>
 
     <div class="statusbar">
-      <div id="status">scemo chi legge...</div>
+      <div id="status">In attesa di risposta...</div>
       <div>Kekka, 20:00</div>
     </div>
   </main>
@@ -441,7 +441,7 @@ body {
     </div>
     <div class="rank-box">
       <ol id="rank-list" hidden></ol>
-      <p id="rank-empty">Ancora nessuno in lista. :(.</p>
+      <p id="rank-empty">Ancora nessuno in lista. Fai il primo.</p>
     </div>
     <div class="statusbar">
       <div id="rank-status">0 confermati</div>
@@ -566,7 +566,7 @@ body {
     e.preventDefault();
     var name = input.value.trim().replace(/\s+/g, " ");
     if (!name) {
-      hint.textContent = "Scrivi il tuo nome, altrimenti Fraga non sa chi sei.";
+      hint.textContent = "scrivi il tuo nome da terrapiattista.";
       input.focus();
       return;
     }
@@ -579,16 +579,16 @@ body {
   function confirmGuest(name) {
     bubble.textContent = "";
     var p1 = document.createElement("p"), b = document.createElement("b"), p2 = document.createElement("p");
-    b.textContent = "Grande " + name + ", ti ho segnato!";
+    b.textContent = " " + name + ", ti aspecto sium";
     p1.appendChild(b);
-    p2.textContent = "Ci vediamo a casa di Kekka alle 20:00. Manda la conferma a Fraga così lo sa anche lui.";
+    p2.textContent = "Ci vediamo a casa di Kekka bro.";
     bubble.appendChild(p1); bubble.appendChild(p2);
 
     $("name-step").hidden = true;
     $("ok-step").hidden = false;
-    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno CI SONO! e sono gay.");
+    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno ci sono :D:D:D.");
 
-    $("question").textContent = "✔ " + name + " c'è e dopo voto vannaccee!";
+    $("question").textContent = "✔ " + name + " c'è. Ci vediamo bro!";
     $("question").className = "done";
     $("choices").hidden = true;
     status.textContent = "Invitato confermato: " + name;
@@ -739,9 +739,9 @@ body {
   // Incolla qui i tre codici (vedi LEGGIMI.txt). Finché sono vuoti la
   // classifica mostra solo il nome inserito su questo dispositivo.
   var GOOGLE = {
-    formId: "",     // dal link del modulo: .../forms/d/e/QUESTO_CODICE/viewform
-    entryName: "",  // dal link precompilato: entry.123456789 (solo "entry.123456789")
-    sheetId: ""     // dal link del foglio: .../spreadsheets/d/QUESTO_CODICE/edit
+    formId: "1FAIpQLSeBlQVRfpO5jreK-Oe4V6Z-K87dL4wJSNarEHsB7e60NRAwGw",     // dal link del modulo: .../forms/d/e/QUESTO_CODICE/viewform
+    entryName: "entry.877919167",  // dal link precompilato: entry.123456789 (solo "entry.123456789")
+    sheetId: "1Gq0MSMoZW6feAbuuJG1ai84V8BaVIufDAlrWlqcYuuI"     // dal link del foglio: .../spreadsheets/d/QUESTO_CODICE/edit
   };
   // =======================================================
 
@@ -780,7 +780,7 @@ body {
     var s = document.createElement("script");
     s.id = "rank-jsonp";
     s.src = "https://docs.google.com/spreadsheets/d/" + GOOGLE.sheetId +
-      "/gviz/tq?headers=1&tqx=out:json;responseHandler:fragaList&tq=" +
+      "/gviz/tq?gid=184369629&headers=1&tqx=out:json;responseHandler:fragaList&tq=" +
       encodeURIComponent("select B where B is not null") + "&t=" + Date.now();
     document.body.appendChild(s);
   }
