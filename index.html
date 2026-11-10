@@ -588,7 +588,7 @@ body {
     $("ok-step").hidden = false;
     $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno ci sono :D:D:D.");
 
-    $("question").textContent = "✔ " + name + " c'è. Ci vediamo bro!";
+    $("question").textContent = "✔ " + name + " c'è. Avrei preferito qualcosa di meglio però ok";
     $("question").className = "done";
     $("choices").hidden = true;
     status.textContent = "Invitato confermato: " + name;
@@ -804,6 +804,11 @@ body {
   setInterval(loadRank, 30000);
 
   // chi ha già confermato ritrova la conferma
+  // aprendo il sito con #reset in fondo all'indirizzo si riparte da zero
+  if (location.hash === "#reset") {
+    try { localStorage.removeItem("fraga-ospite"); } catch (err) {}
+    try { history.replaceState(null, "", location.pathname); } catch (err) {}
+  }
   try {
     var saved = localStorage.getItem("fraga-ospite");
     if (saved) {
