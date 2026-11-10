@@ -1,5 +1,10 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Compleanno di Fraga</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon&family=Press+Start+2P&display=swap">
 <style>
 /* Layout: desktop Windows 98 a tutto schermo, una finestra centrale con l'invito al neon, taskbar in basso; le finestre di dialogo si aprono sopra. */
@@ -35,6 +40,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   background: var(--desk);
@@ -48,6 +54,8 @@ body {
   flex: 1;
   position: relative;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
   align-items: center;
   justify-content: center;
   padding-block: 20px;
@@ -74,7 +82,19 @@ body {
   width: 100%;
   min-width: 0;
 }
-.win.main { max-width: 600px; }
+.win.main, .win.rank { max-width: 600px; }
+.rank-box {
+  background: var(--field);
+  box-shadow: inset 1px 1px var(--shade), inset -1px -1px var(--hi), inset 2px 2px var(--dark), inset -2px -2px var(--light);
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 8px 10px;
+  font: 14px/1.6 var(--mono);
+}
+.rank-box ol { margin: 0; padding-left: 2.6em; }
+.rank-box li { overflow-wrap: anywhere; }
+.rank-box li::marker { font-weight: bold; }
+.rank-box p { margin: 0; color: var(--shade); }
 .titlebar {
   background: linear-gradient(90deg, var(--title-a), var(--title-b));
   color: var(--title-ink);
@@ -248,7 +268,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .screen h1, .screen h1 .f2, .clippy, .clippy .lid, .bsod .blink { animation: none; }
 }
-
 /* ---- teletrasporto del "No" ---- */
 .win.main { position: relative; }
 #no { position: relative; z-index: 5; }
@@ -368,6 +387,8 @@ body {
   .lane { display: none; }
 }
 </style>
+</head>
+<body>
 
 <div class="desk">
   <div class="icons" aria-hidden="true">
@@ -403,21 +424,35 @@ body {
       <p id="question">Allora, vieni?</p>
       <div class="btnrow" id="choices">
         <button class="btn default" id="yes" type="button">Ci sono</button>
-        <button class="btn" id="no" type="button">No, non vengo bro</button>
+        <button class="btn" id="no" type="button">No, non vengo trimone</button>
       </div>
     </div>
 
     <div class="statusbar">
-      <div id="status">bella bro</div>
+      <div id="status">In attesa di risposta...</div>
       <div>Kekka, 20:00</div>
     </div>
   </main>
+
+  <section class="win rank" aria-labelledby="rank-title">
+    <div class="titlebar">
+      <span class="t" id="rank-title">classifica.txt - Chi viene</span>
+      <span class="tb-btns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+    </div>
+    <div class="rank-box">
+      <ol id="rank-list" hidden></ol>
+      <p id="rank-empty">Ancora nessuno in lista. Fai il primo.</p>
+    </div>
+    <div class="statusbar">
+      <div id="rank-status">0 confermati</div>
+    </div>
+  </section>
 </div>
 
 <div class="taskbar">
   <span class="btn start" aria-hidden="true">
     <svg width="18" height="16" viewBox="0 0 18 16"><rect x="1" y="1" width="7" height="6" fill="#e03c28"/><rect x="10" y="1" width="7" height="6" fill="#3cb043"/><rect x="1" y="9" width="7" height="6" fill="#2a6fdb"/><rect x="10" y="9" width="7" height="6" fill="#f2c200"/></svg>
-    scemo chi legge
+    Avvio
   </span>
   <span class="task">invito.exe</span>
   <span class="clock" id="clock">20:00</span>
@@ -460,7 +495,7 @@ body {
       </div>
       <div id="ok-step" hidden>
         <div class="btnrow">
-          <a class="btn default" id="wa" href="https://wa.me/" target="_blank" rel="noopener">bro, avvisami su whatsapp che quest app è finta </a>
+          <a class="btn default" id="wa" href="https://wa.me/" target="_blank" rel="noopener">crazy bro, se vedemo</a>
           <button class="btn" type="button" id="ok-close">Chiudi</button>
         </div>
       </div>
@@ -546,18 +581,19 @@ body {
     var p1 = document.createElement("p"), b = document.createElement("b"), p2 = document.createElement("p");
     b.textContent = "Grande " + name + ", ti ho segnato!";
     p1.appendChild(b);
-    p2.textContent = "Ci vediamo a casa di Kekka alle 20:00. :D :) :) :D :) :D :D.";
+    p2.textContent = "Ci vediamo a casa di Kekka alle 20:00. Manda la conferma a Fraga così lo sa anche lui.";
     bubble.appendChild(p1); bubble.appendChild(p2);
 
     $("name-step").hidden = true;
     $("ok-step").hidden = false;
-    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno CI SONO! e voterò Vannaccee .");
+    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno CI SONO! Casa di Kekka, ore 20:00.");
 
     $("question").textContent = "✔ " + name + " c'è. Ci vediamo alle 20:00!";
     $("question").className = "done";
     $("choices").hidden = true;
     status.textContent = "Invitato confermato: " + name;
     try { localStorage.setItem("fraga-ospite", name); } catch (err) {}
+    sendGuest(name);
     $("wa").focus();
   }
   $("ok-close").addEventListener("click", function () { dlgName.hidden = true; });
@@ -629,7 +665,7 @@ body {
 
   function burn() {
     burned = true;
-    status.textContent = "Errore: comunista rilevato.";
+    status.textContent = "Errore fatale: trimone rilevato.";
     var r = no.getBoundingClientRect(), m = mainWin.getBoundingClientRect();
     var f = document.createElement("span");
     f.className = "flames";
@@ -683,7 +719,7 @@ body {
     var f = mainWin.querySelector(".flames");
     if (f) f.remove();
     input.value = ""; hint.textContent = "";
-    status.textContent = "cojone.";
+    status.textContent = "Asensio 4 a 1.";
     if (!$("choices").hidden) yes.focus();
   });
 
@@ -699,11 +735,79 @@ body {
     if (e.key === "Escape" && !dlgName.hidden) { stopTimer(); dlgName.hidden = true; yes.focus(); }
   });
 
+  // ================= COLLEGAMENTO GOOGLE =================
+  // Incolla qui i tre codici (vedi LEGGIMI.txt). Finché sono vuoti la
+  // classifica mostra solo il nome inserito su questo dispositivo.
+  var GOOGLE = {
+    formId: "",     // dal link del modulo: .../forms/d/e/QUESTO_CODICE/viewform
+    entryName: "",  // dal link precompilato: entry.123456789 (solo "entry.123456789")
+    sheetId: ""     // dal link del foglio: .../spreadsheets/d/QUESTO_CODICE/edit
+  };
+  // =======================================================
+
+  var sheetNames = [], pending = [];
+
+  function renderRank() {
+    var all = sheetNames.concat(pending);
+    var ol = $("rank-list");
+    ol.textContent = "";
+    all.forEach(function (n) {
+      var li = document.createElement("li");
+      li.textContent = String(n).slice(0, 40);
+      ol.appendChild(li);
+    });
+    ol.hidden = all.length === 0;
+    $("rank-empty").hidden = all.length > 0;
+    $("rank-status").textContent = all.length + (all.length === 1 ? " confermato" : " confermati");
+  }
+
+  // Google risponde chiamando questa funzione con il contenuto del foglio
+  window.fragaList = function (res) {
+    try {
+      var rows = (res && res.table && res.table.rows) || [];
+      sheetNames = rows.map(function (r) { return r.c && r.c[0] && r.c[0].v; })
+        .filter(function (v) { return v !== null && v !== undefined && String(v).trim() !== ""; })
+        .map(String);
+      pending = pending.filter(function (n) { return sheetNames.indexOf(n) === -1; });
+      renderRank();
+    } catch (err) {}
+  };
+
+  function loadRank() {
+    if (!GOOGLE.sheetId) return;
+    var old = document.getElementById("rank-jsonp");
+    if (old) old.remove();
+    var s = document.createElement("script");
+    s.id = "rank-jsonp";
+    s.src = "https://docs.google.com/spreadsheets/d/" + GOOGLE.sheetId +
+      "/gviz/tq?headers=1&tqx=out:json;responseHandler:fragaList&tq=" +
+      encodeURIComponent("select B where B is not null") + "&t=" + Date.now();
+    document.body.appendChild(s);
+  }
+
+  function sendGuest(name) {
+    pending.push(name);
+    renderRank();
+    if (!GOOGLE.formId || !GOOGLE.entryName) return;
+    var body = new URLSearchParams();
+    body.append(GOOGLE.entryName, name);
+    fetch("https://docs.google.com/forms/d/e/" + GOOGLE.formId + "/formResponse", {
+      method: "POST", mode: "no-cors", body: body
+    }).then(function () { setTimeout(loadRank, 3000); }).catch(function () {
+      status.textContent = "Nome non inviato: controlla la connessione e riprova.";
+      try { localStorage.removeItem("fraga-ospite"); } catch (err) {}
+    });
+  }
+
+  renderRank();
+  loadRank();
+  setInterval(loadRank, 30000);
+
   // chi ha già confermato ritrova la conferma
   try {
     var saved = localStorage.getItem("fraga-ospite");
     if (saved) {
-      $("question").textContent = "✔ " + saved + " sei gay";
+      $("question").textContent = "✔ " + saved + " c'è. Ci vediamo alle 20:00!";
       $("question").className = "done";
       $("choices").hidden = true;
       status.textContent = "Invitato confermato: " + saved;
@@ -711,3 +815,5 @@ body {
   } catch (err) {}
 })();
 </script>
+</body>
+</html>
