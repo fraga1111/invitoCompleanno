@@ -423,13 +423,13 @@ body {
     <div class="rsvp" id="rsvp">
       <p id="question">Allora, vieni?</p>
       <div class="btnrow" id="choices">
-        <button class="btn default" id="yes" type="button">Ci sono</button>
-        <button class="btn" id="no" type="button">No, non vengo trimone</button>
+        <button class="btn default" id="yes" type="button">ci sono</button>
+        <button class="btn" id="no" type="button">no bro, non vengo</button>
       </div>
     </div>
 
     <div class="statusbar">
-      <div id="status">In attesa di risposta...</div>
+      <div id="status">scemo chi legge...</div>
       <div>Kekka, 20:00</div>
     </div>
   </main>
@@ -441,7 +441,7 @@ body {
     </div>
     <div class="rank-box">
       <ol id="rank-list" hidden></ol>
-      <p id="rank-empty">Ancora nessuno in lista. Fai il primo.</p>
+      <p id="rank-empty">Ancora nessuno in lista. :(.</p>
     </div>
     <div class="statusbar">
       <div id="rank-status">0 confermati</div>
@@ -586,9 +586,9 @@ body {
 
     $("name-step").hidden = true;
     $("ok-step").hidden = false;
-    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno CI SONO! Casa di Kekka, ore 20:00.");
+    $("wa").href = "https://wa.me/?text=" + encodeURIComponent("Ciao Fraga, sono " + name + ": al tuo compleanno CI SONO! e sono gay.");
 
-    $("question").textContent = "✔ " + name + " c'è. Ci vediamo alle 20:00!";
+    $("question").textContent = "✔ " + name + " c'è e dopo voto vannaccee!";
     $("question").className = "done";
     $("choices").hidden = true;
     status.textContent = "Invitato confermato: " + name;
@@ -665,7 +665,7 @@ body {
 
   function burn() {
     burned = true;
-    status.textContent = "Errore fatale: trimone rilevato.";
+    status.textContent = "Errore: sei comunista.";
     var r = no.getBoundingClientRect(), m = mainWin.getBoundingClientRect();
     var f = document.createElement("span");
     f.className = "flames";
