@@ -1475,8 +1475,10 @@ button.icon.secret:hover span { background: none; outline: none; }
     $("qz-timer").hidden = false; $("qz-arena").hidden = true;
     $("qz-text").textContent = q.d;
     box.hidden = false; box.textContent = "";
+    var right = null; // il tasto con la risposta giusta
     shuffle(q.r.map(function (t, k) { return { t: t, ok: k === 0 }; })).forEach(function (o) {
       var b = el("button", "btn", o.t);
+      if (o.ok) right = b;
       b.addEventListener("click", function () { answer(b, o.ok); });
       box.appendChild(b);
     });
@@ -1497,8 +1499,9 @@ button.icon.secret:hover span { background: none; outline: none; }
       if (over) return;
       var l = left();
       lock();
-      // si vede solo se la propria risposta era giusta o no: quella giusta non viene svelata
-      if (btn) btn.classList.add(ok ? "ok" : "ko");
+      // la risposta giusta diventa sempre verde, quella sbagliata che hai scelto rossa
+      if (btn && !ok) btn.classList.add("ko");
+      if (right) right.classList.add("ok");
       if (ok) end(50 + 50 * l / T, "Giusta!");
       else end(0, btn ? "Sbagliata." : "Tempo scaduto.");
     }
